@@ -1,0 +1,49 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-5">
+            <img [src]="getImagen()" alt="" class="img-fluid">
+        </div>
+        <div class="col align-self-center">
+            <h2>{{ ciudad.data?.attributes?.nombre | titlecase}}</h2>
+
+            <p>
+                Alojamientos: {{ ciudad.data?.attributes?.alojamientos | number}}
+            </p>
+
+            <p>{{ciudad.data?.attributes?.descripcion}}</p>
+        </div>
+
+    </div>
+
+    <div class="row mt-2">
+        <h2>Hoteles</h2>
+
+        <div *ngIf="validateHoteles(); else hoteles" class="alert alert-danger" role="alert">
+            No se encontro hoteles en {{ ciudad.data?.attributes?.nombre | titlecase}}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <ng-template #hoteles>
+            <div *ngFor="let hotel of ciudad.data?.attributes?.hotels?.data" class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ hotel.attributes.nombre}}</h5>
+                        <dl>
+                            <dt>Calificacion:</dt>
+                            <dd>{{ hotel.attributes.calificacion | number}}</dd>
+
+                            <dt>Direccion:</dt>
+                            <dd>{{ hotel.attributes.descripcion }}</dd>
+                        </dl>
+
+                        <a href="#" class="btn btn-primary">Ver Habitaciones</a>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+<!--<pre>{{ ciudad | json}}</pre>-->
